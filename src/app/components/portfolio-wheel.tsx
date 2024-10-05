@@ -62,7 +62,7 @@ const ImageCarousel: React.FC<{ images: string[] }> = ({ images }) => {
   useEffect(() => {
     timeoutRef.current = setTimeout(() => {
       nextImage();
-    }, 3000);
+    }, 1500);
 
     return () => {
       if (timeoutRef.current) {
@@ -75,7 +75,7 @@ const ImageCarousel: React.FC<{ images: string[] }> = ({ images }) => {
     if (isTransitioning) {
       const timer = setTimeout(() => {
         setIsTransitioning(false);
-      }, 3000);
+      }, 1500);
       return () => clearTimeout(timer);
     }
   }, [isTransitioning]);
@@ -154,9 +154,9 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen ">
+    <div className="flex flex-col md:flex-row h-screen "> 
       {/* PortfolioWheel for desktop */}
-      <div className="hidden md:flex md:flex-1 md:w-1/3 items-center justify-center">
+      <div className="hidden md:flex md:flex-1 md:w-1/3 items-center justify-end">
         <div className="flex flex-col items-center">
           <button
             onClick={navigatePrev}
@@ -205,6 +205,8 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
             </button>
           </div>
         </div>
+
+
 
         {/* Navigation arrows for mobile */}
         <div className="md:hidden flex justify-between p-4 w-full">
