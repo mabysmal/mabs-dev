@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import CircularProfile from "./profile-photo";
 import PortfolioWheel from "./portfolio-wheel";
 
-
 export default function HomeClient() {
   const [activeSection, setActiveSection] = useState("welcome");
 
@@ -18,7 +17,9 @@ export default function HomeClient() {
         >
           <CircularProfile></CircularProfile>
           <span className="pt-4 text-white text-xl">Hola, soy</span>
-          <h1 className="pt-2 text-white text-8xl font-magic-retro">Mabel Castillo</h1>
+          <h1 className="pt-2 text-white text-8xl font-magic-retro glow animate-glow">
+            Mabel Castillo
+          </h1>
         </section>
 
         <section 
@@ -35,7 +36,6 @@ export default function HomeClient() {
           onMouseEnter={() => setActiveSection("about")}
         >
           <h2 className="text-3xl font-semibold">About Me</h2>
-          {/* <CircularProfile></CircularProfile> */}
         </section>
       </main>
     </div>
