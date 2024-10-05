@@ -1,29 +1,15 @@
-import Image from "next/image";
-import CircularProfile from "./components/profile-photo";
-import PortfolioWheel from "./components/portfolio-wheel";
-
+import React from "react";
+import HomeClient from "./components/home-client"; // Importamos el componente cliente
+import './globals.css';
 
 export default function Home() {
   return (
-    <div className="a">
-      <main className="a">
-        <section id="welcome-banner" className="flex flex-center justify-center">
-          <h1>Hola, soy Mabel Castillo</h1>
-        </section>
-
-        <section id="TopPortafolio" className="">
-          <PortfolioWheel></PortfolioWheel>
-        </section>
-
-        <section id="About Me">
-          {/* <CircularProfile></CircularProfile> */}
-        </section>
-        
-        
-      </main>
-      <footer>
-        
+    <main>
+      
+      <HomeClient />
+      <footer className="h-20 bg-gray-200 flex items-center justify-center">
+      <p>© 2023 Mabel Castillo</p>
       </footer>
-    </div>
+    </main>
   );
 }

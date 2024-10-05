@@ -25,3 +25,10 @@ body {
     text-wrap: balance;
   }
 }
+
+@font-face {
+  font-family: 'MagicRetro';
+  src: url('/src/app/fonts/Magic-Retro.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

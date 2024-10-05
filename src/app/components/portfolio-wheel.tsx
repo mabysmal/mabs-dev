@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -12,31 +13,26 @@ const projects = [
   },
   {
     id: 2,
-    title: 'Project 2',
-    images: ['/api/placeholder/300/300', '/api/placeholder/300/300', '/api/placeholder/300/300'],
-    description: 'Description for Project 2'
+    title: 'Macanazos',
+    type: 'Retail Website',
+    images: ['/images/macanazoslogo.png', '/images/macanazosland.png', '/images/macanazoscatalogo.png', '/images/macanazosorder.png', '/images/macanazosaboutus.png'],
+    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.'
   },
   {
     id: 3,
-    title: 'Project 3',
-    type: 'Tipo de Proyecto',
-    images: ['/api/placeholder/300/300', '/api/placeholder/300/300', '/api/placeholder/300/300'],
-    description: 'Description for Project 3'
+    title: 'Macanazos',
+    type: 'Retail Website',
+    images: ['/images/macanazoslogo.png', '/images/macanazosland.png', '/images/macanazoscatalogo.png', '/images/macanazosorder.png', '/images/macanazosaboutus.png'],
+    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.'
   },
   {
     id: 4,
-    title: 'Project 4',
-    type: 'Tipo de Proyecto',
-    images: ['/api/placeholder/300/300', '/api/placeholder/300/300', '/api/placeholder/300/300'],
-    description: 'Description for Project 4'
+    title: 'Macanazos',
+    type: 'Retail Website',
+    images: ['/images/macanazoslogo.png', '/images/macanazosland.png', '/images/macanazoscatalogo.png', '/images/macanazosorder.png', '/images/macanazosaboutus.png'],
+    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.'
   },
-  {
-    id: 5,
-    title: 'Project 5',
-    type: 'Tipo de Proyecto',
-    images: ['/api/placeholder/300/300', '/api/placeholder/300/300', '/api/placeholder/300/300'],
-    description: 'Description for Project 5'
-  },
+  // ... (otros proyectos)
 ];
 
 const ImageCarousel: React.FC<{ images: string[] }> = ({ images }) => {
@@ -79,36 +75,30 @@ const ImageCarousel: React.FC<{ images: string[] }> = ({ images }) => {
   );
 };
 
-const PortfolioWheel: React.FC = () => {
+interface PortfolioWheelProps {
+  isActive: boolean;
+}
+
+const PortfolioWheel: React.FC<PortfolioWheelProps> = ({ isActive }) => {
   const [selectedProject, setSelectedProject] = useState(projects[0]);
   const [wheelPosition, setWheelPosition] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = (e: WheelEvent) => {
-      if (e.deltaY > 0) {
-        navigateDown();
-      } else {
-        navigateUp();
-      }
-    };
-
-    window.addEventListener('wheel', handleScroll);
-    return () => window.removeEventListener('wheel', handleScroll);
-  }, []);
 
   useEffect(() => {
     setSelectedProject(projects[wheelPosition]);
   }, [wheelPosition]);
 
   const navigateUp = () => {
+    if (!isActive) return;
     setWheelPosition((prev) => (prev - 1 + projects.length) % projects.length);
   };
 
   const navigateDown = () => {
+    if (!isActive) return;
     setWheelPosition((prev) => (prev + 1) % projects.length);
   };
 
   const handleProjectClick = (index: number) => {
+    if (!isActive) return;
     setWheelPosition(index);
   };
 

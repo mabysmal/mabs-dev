@@ -8,10 +8,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'magic-retro': ['MagicRetro', 'sans-serif'],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'dark-purple': '#0b081b',
+        'purple': '#4b3286'
       },
+      
     },
   },
   plugins: [],
