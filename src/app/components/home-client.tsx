@@ -12,7 +12,7 @@ export default function HomeClient() {
       <main className="flex flex-col">
         <section 
           id="welcome-banner" 
-          className="h-screen flex items-center justify-center flex-col flex wrap bg-gradient-to-r from-black to-purple"
+          className="h-screen flex items-center justify-center flex-col bg-wave"
           onMouseEnter={() => setActiveSection("welcome")}
         >
           <CircularProfile></CircularProfile>

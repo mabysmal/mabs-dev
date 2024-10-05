@@ -41,6 +41,26 @@ body {
     transition: text-shadow 0.5s ease-in-out;
   }
 
+    .bg-wave {
+      background: linear-gradient(270deg, #0b081b, #36255e, rgb(75, 51, 119), rgb(75, 51, 119), #4b3286, #0b081b);
+      background-size: 500% 500%;
+      animation: wave 10s ease-in-out infinite;
+    }
+  
+    @keyframes wave {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+  
+
   @keyframes glow {
     0%, 100% {
       text-shadow: 0 0 05px rgba(255, 255, 255, 0.8),
