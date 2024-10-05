@@ -44,49 +44,41 @@ const projects = [
 
 const ImageCarousel: React.FC<{ images: string[] }> = ({ images }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isAutoAdvancing, setIsAutoAdvancing] = useState(true);
-  const autoAdvanceIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const nextImage = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
   const prevImage = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   };
 
-  const startAutoAdvance = () => {
-    if (autoAdvanceIntervalRef.current) clearInterval(autoAdvanceIntervalRef.current);
-    autoAdvanceIntervalRef.current = setInterval(() => {
+  useEffect(() => {
+    timeoutRef.current = setTimeout(() => {
       nextImage();
     }, 3000);
-  };
 
-  const stopAutoAdvance = () => {
-    if (autoAdvanceIntervalRef.current) {
-      clearInterval(autoAdvanceIntervalRef.current);
-      autoAdvanceIntervalRef.current = null;
-    }
-  };
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [currentImageIndex]);
 
   useEffect(() => {
-    if (isAutoAdvancing) {
-      startAutoAdvance();
-    } else {
-      stopAutoAdvance();
+    if (isTransitioning) {
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+      }, 3000);
+      return () => clearTimeout(timer);
     }
-
-    return () => stopAutoAdvance();
-  }, [isAutoAdvancing]);
-
-  const handleManualNavigation = (direction: 'prev' | 'next') => {
-    setIsAutoAdvancing(false);
-    if (direction === 'prev') {
-      prevImage();
-    } else {
-      nextImage();
-    }
-  };
+  }, [isTransitioning]);
 
   return (
     <div className="relative pb-[100%] w-full">
@@ -97,28 +89,32 @@ const ImageCarousel: React.FC<{ images: string[] }> = ({ images }) => {
             src={image}
             alt={`Project image ${index + 1}`}
             className={`absolute w-full h-full object-cover transition-opacity duration-1000 ${
-              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+              index === currentImageIndex
+                ? 'opacity-100'
+                : 'opacity-0'
             }`}
           />
         ))}
       </div>
-      <div className="absolute inset-x-0 bottom-0 flex justify-between p-2">
-        <button
-          onClick={() => handleManualNavigation('prev')}
-          className="bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <button
-          onClick={() => handleManualNavigation('next')}
-          className="bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          <ChevronRight size={24} />
-        </button>
-      </div>
+      <div className="absolute inset-0 flex justify-between items-center p-2">
+  <button
+    onClick={prevImage}
+    className="bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 transform -translate-y-1/2 absolute left-2 top-1/2"
+  >
+    <ChevronLeft size={24} />
+  </button>
+  <button
+    onClick={nextImage}
+    className="bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 transform -translate-y-1/2 absolute right-2 top-1/2"
+  >
+    <ChevronRight size={24} />
+  </button>
+</div>
+
     </div>
   );
 };
+
 interface PortfolioProps {
   isActive: boolean;
 }
@@ -158,9 +154,9 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen">
+    <div className="flex flex-col md:flex-row h-screen ">
       {/* PortfolioWheel for desktop */}
-      <div className="hidden md:flex md:flex-1 items-center justify-center">
+      <div className="hidden md:flex md:flex-1 md:w-1/3 items-center justify-center">
         <div className="flex flex-col items-center">
           <button
             onClick={navigatePrev}
@@ -168,7 +164,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
           >
             <ChevronUp size={32} />
           </button>
-          <div className="flex flex-col  items-center space-y-4">
+          <div className="flex flex-col items-center space-y-4">
             {projects.map((project, index) => (
               <img
                 key={project.id}
@@ -191,7 +187,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
       </div>
 
       {/* Project details for desktop and mobile */}
-      <div className="flex-1 flex flex-col">
+      <div className="md:w-2/3 flex flex-col">
         <div 
           className="flex-1 flex items-center justify-center p-4"
           ref={carouselRef}
