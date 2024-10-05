@@ -16,8 +16,8 @@ export default function HomeClient() {
           onMouseEnter={() => setActiveSection("welcome")}
         >
           <CircularProfile></CircularProfile>
-          <span className="pt-4 text-white text-xl">Hola, soy</span>
-          <h1 className="pt-2 text-white text-8xl font-magic-retro glow animate-glow">
+          <span className="pt-4 text-white text-xl text-center">Hola, soy</span>
+          <h1 className="pt-2 text-white text-8xl font-magic-retro glow animate-glow items-center justify-center text-center">
             Mabel Castillo
           </h1>
         </section>

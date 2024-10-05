@@ -1,6 +1,5 @@
 'use client';
-
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const projects = [
@@ -9,35 +8,40 @@ const projects = [
     title: 'Macanazos',
     type: 'Retail Website',
     images: ['/images/macanazoslogo.png', '/images/macanazosland.png', '/images/macanazoscatalogo.png', '/images/macanazosorder.png', '/images/macanazosaboutus.png'],
-    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.'
+    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.',
+    link: 'https://macanazos.memaxo.art/'
   },
   {
     id: 1,
     title: 'Macanazos 2',
     type: 'Retail Website',
     images: ['/images/macanazoslogo.png', '/images/macanazosland.png', '/images/macanazoscatalogo.png', '/images/macanazosorder.png', '/images/macanazosaboutus.png'],
-    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.'
+    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.',
+    link: 'https://macanazos.memaxo.art/'
   },
   {
     id: 1,
     title: 'Macanazos 3',
     type: 'Retail Website',
     images: ['/images/macanazoslogo.png', '/images/macanazosland.png', '/images/macanazoscatalogo.png', '/images/macanazosorder.png', '/images/macanazosaboutus.png'],
-    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.'
+    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.',
+    link: 'https://macanazos.memaxo.art/'
   },
   {
     id: 1,
     title: 'Macanazos 4',
     type: 'Retail Website',
     images: ['/images/macanazoslogo.png', '/images/macanazosland.png', '/images/macanazoscatalogo.png', '/images/macanazosorder.png', '/images/macanazosaboutus.png'],
-    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.'
+    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.',
+    link: 'https://macanazos.memaxo.art/'
   },
   {
     id: 1,
     title: 'Macanazos 5',
     type: 'Retail Website',
     images: ['/images/macanazoslogo.png', '/images/macanazosland.png', '/images/macanazoscatalogo.png', '/images/macanazosorder.png', '/images/macanazosaboutus.png'],
-    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.'
+    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.',
+    link: 'https://macanazos.memaxo.art/'
   },
   // ... (other projects)
 ];
@@ -121,19 +125,57 @@ interface PortfolioProps {
 
 const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [nextImageIndex, setNextImageIndex] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
 
-  const carouselRef = useRef<HTMLDivElement>(null);
-
-  const navigatePrev = () => {
+  const navigateProject = (direction: 'next' | 'prev') => {
     if (!isActive) return;
-    setCurrentProjectIndex((prev) => (prev - 1 + projects.length) % projects.length);
+    setCurrentProjectIndex((prev) => 
+      direction === 'next' 
+        ? (prev + 1) % projects.length 
+        : (prev - 1 + projects.length) % projects.length
+    );
+    setCurrentImageIndex(0);
+    setNextImageIndex(1);
   };
 
-  const navigateNext = () => {
-    if (!isActive) return;
-    setCurrentProjectIndex((prev) => (prev + 1) % projects.length);
+  const transitionToNextImage = useCallback(() => {
+    const currentImages = projects[currentProjectIndex].images;
+    setIsTransitioning(true);
+    setNextImageIndex((prevNext) => (prevNext + 1) % currentImages.length);
+
+    setTimeout(() => {
+      setCurrentImageIndex((prevCurrent) => (prevCurrent + 1) % currentImages.length);
+      setIsTransitioning(false);
+    }, 3000); // 1 second transition
+  }, [currentProjectIndex]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      transitionToNextImage();
+    }, 3000); // 3 seconds display + 1 second transition
+
+    return () => clearInterval(timer);
+  }, [transitionToNextImage]);
+
+  const navigateImage = (direction: 'next' | 'prev') => {
+    if (isTransitioning) return;
+    const currentImages = projects[currentProjectIndex].images;
+
+    setIsTransitioning(true);
+    if (direction === 'next') {
+      setNextImageIndex((prevNext) => (prevNext + 1) % currentImages.length);
+    } else {
+      setNextImageIndex((prevNext) => (prevNext - 1 + currentImages.length) % currentImages.length);
+    }
+
+    setTimeout(() => {
+      setCurrentImageIndex(nextImageIndex);
+      setIsTransitioning(false);
+    }, 1000);
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -146,20 +188,22 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
 
   const handleTouchEnd = () => {
     if (touchStart - touchEnd > 75) {
-      navigateNext();
+      navigateProject('next');
     }
     if (touchStart - touchEnd < -75) {
-      navigatePrev();
+      navigateProject('prev');
     }
   };
 
+  const currentImages = projects[currentProjectIndex].images;
+
   return (
-    <div className="flex flex-col md:flex-row h-screen "> 
+    <div className="flex flex-col md:flex-row h-screen">
       {/* PortfolioWheel for desktop */}
       <div className="hidden md:flex md:flex-1 md:w-1/3 items-center justify-end">
         <div className="flex flex-col items-center">
           <button
-            onClick={navigatePrev}
+            onClick={() => navigateProject('prev')}
             className="mb-4 text-gray-400 hover:text-gray-600 transition-colors"
           >
             <ChevronUp size={32} />
@@ -178,7 +222,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
             ))}
           </div>
           <button
-            onClick={navigateNext}
+            onClick={() => navigateProject('next')}
             className="mt-4 text-gray-400 hover:text-gray-600 transition-colors"
           >
             <ChevronDown size={32} />
@@ -190,7 +234,6 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
       <div className="md:w-2/3 flex flex-col">
         <div 
           className="flex-1 flex items-center justify-center p-4"
-          ref={carouselRef}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
@@ -198,22 +241,55 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
           <div className="bg-white p-4 md:p-8 rounded-lg shadow-lg max-w-md w-full">
             <h1 className="text-2xl md:text-3xl font-bold mb-2">{projects[currentProjectIndex].title}</h1>
             <span className="text-sm text-gray-500 mb-4 block">{projects[currentProjectIndex].type}</span>
-            <ImageCarousel images={projects[currentProjectIndex].images} />
+            
+            {/* Image Carousel */}
+            <div className="relative pb-[100%] w-full">
+              <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+                {currentImages.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`Project image ${index + 1}`}
+                    className={`absolute w-full h-full object-cover transition-opacity duration-1000 ${
+                      index === currentImageIndex || (isTransitioning && index === nextImageIndex)
+                        ? 'opacity-100'
+                        : 'opacity-0'
+                    }`}
+                  />
+                ))}
+              </div>
+              <div className="absolute inset-0 flex justify-between items-center p-2">
+                <button
+                  onClick={() => navigateImage('prev')}
+                  className="bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 transform -translate-y-1/2 absolute left-2 top-1/2"
+                >
+                  <ChevronLeft size={24} />
+                </button>
+                <button
+                  onClick={() => navigateImage('next')}
+                  className="bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 transform -translate-y-1/2 absolute right-2 top-1/2"
+                >
+                  <ChevronRight size={24} />
+                </button>
+              </div>
+            </div>
+            
             <p className="text-gray-700 mb-4 mt-4">{projects[currentProjectIndex].description}</p>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
-              View Project
-            </button>
+            <a href={projects[currentProjectIndex].link} className='flex justify-center items-center'>
+              <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                View Project
+              </button>
+            </a>
+            
           </div>
         </div>
-
-
 
         {/* Navigation arrows for mobile */}
         <div className="md:hidden flex justify-between p-4 w-full">
           <button
             onClick={(e) => {
               e.preventDefault();
-              navigatePrev();
+              navigateProject('prev');
             }}
             className="bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
@@ -222,7 +298,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
           <button
             onClick={(e) => {
               e.preventDefault();
-              navigateNext();
+              navigateProject('next');
             }}
             className="bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
