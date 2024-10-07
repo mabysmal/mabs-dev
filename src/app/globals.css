@@ -44,7 +44,7 @@ body {
     .bg-wave {
       background: linear-gradient(270deg, #0b081b, #36255e, rgb(75, 51, 119), rgb(75, 51, 119), #4b3286, #0b081b);
       background-size: 500% 500%;
-      animation: wave 10s ease-in-out infinite;
+      animation: wave 20s ease-in-out infinite;
     }
   
     @keyframes wave {
@@ -68,9 +68,9 @@ body {
                    0 0 15px rgba(255, 255, 255, 0.4);
     }
     50% {
-      text-shadow: 0 0 10px rgba(255, 255, 255, 1),
-                   0 0 15px rgba(255, 255, 255, 0.8),
-                   0 0 20px rgba(255, 255, 255, 0.6);
+      text-shadow: 0 0 05px rgba(255, 255, 255, 1),
+                   0 0 07px rgba(255, 255, 255, 0.8),
+                   0 0 10px rgba(255, 255, 255, 0.6);
     }
   }
   

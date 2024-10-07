@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         'magic-retro': ['MagicRetro', 'sans-serif'],
+        'poppins': ['Poppins', 'sans-serif']
       },
       colors: {
         background: "var(--background)",
