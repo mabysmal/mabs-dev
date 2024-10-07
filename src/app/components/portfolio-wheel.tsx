@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 
+
 const projects = [
   {
     id: 1,
@@ -51,17 +52,17 @@ const ImageCarousel: React.FC<{ images: string[] }> = ({ images }) => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-  };
+  }, [isTransitioning, images.length]);
 
-  const prevImage = () => {
+  const prevImage = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-  };
+  }, [isTransitioning, images.length]);
 
   useEffect(() => {
     timeoutRef.current = setTimeout(() => {
@@ -73,7 +74,7 @@ const ImageCarousel: React.FC<{ images: string[] }> = ({ images }) => {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [currentImageIndex]);
+  }, [currentImageIndex, nextImage]);
 
   useEffect(() => {
     if (isTransitioning) {
@@ -101,20 +102,19 @@ const ImageCarousel: React.FC<{ images: string[] }> = ({ images }) => {
         ))}
       </div>
       <div className="absolute inset-0 flex justify-between items-center p-2">
-  <button
-    onClick={prevImage}
-    className="bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 transform -translate-y-1/2 absolute left-2 top-1/2"
-  >
-    <ChevronLeft size={24} />
-  </button>
-  <button
-    onClick={nextImage}
-    className="bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 transform -translate-y-1/2 absolute right-2 top-1/2"
-  >
-    <ChevronRight size={24} />
-  </button>
-</div>
-
+        <button
+          onClick={prevImage}
+          className="bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 transform -translate-y-1/2 absolute left-2 top-1/2"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <button
+          onClick={nextImage}
+          className="bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 transform -translate-y-1/2 absolute right-2 top-1/2"
+        >
+          <ChevronRight size={24} />
+        </button>
+      </div>
     </div>
   );
 };
@@ -125,11 +125,6 @@ interface PortfolioProps {
 
 const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [nextImageIndex, setNextImageIndex] = useState(1);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
 
   const navigateProject = (direction: 'next' | 'prev') => {
     if (!isActive) return;
@@ -138,45 +133,10 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
         ? (prev + 1) % projects.length 
         : (prev - 1 + projects.length) % projects.length
     );
-    setCurrentImageIndex(0);
-    setNextImageIndex(1);
   };
 
-  const transitionToNextImage = useCallback(() => {
-    const currentImages = projects[currentProjectIndex].images;
-    setIsTransitioning(true);
-    setNextImageIndex((prevNext) => (prevNext + 1) % currentImages.length);
-
-    setTimeout(() => {
-      setCurrentImageIndex((prevCurrent) => (prevCurrent + 1) % currentImages.length);
-      setIsTransitioning(false);
-    }, 3000); // 1 second transition
-  }, [currentProjectIndex]);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      transitionToNextImage();
-    }, 3000); // 3 seconds display + 1 second transition
-
-    return () => clearInterval(timer);
-  }, [transitionToNextImage]);
-
-  const navigateImage = (direction: 'next' | 'prev') => {
-    if (isTransitioning) return;
-    const currentImages = projects[currentProjectIndex].images;
-
-    setIsTransitioning(true);
-    if (direction === 'next') {
-      setNextImageIndex((prevNext) => (prevNext + 1) % currentImages.length);
-    } else {
-      setNextImageIndex((prevNext) => (prevNext - 1 + currentImages.length) % currentImages.length);
-    }
-
-    setTimeout(() => {
-      setCurrentImageIndex(nextImageIndex);
-      setIsTransitioning(false);
-    }, 1000);
-  };
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
@@ -194,8 +154,6 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
       navigateProject('prev');
     }
   };
-
-  const currentImages = projects[currentProjectIndex].images;
 
   return (
     <div className="flex flex-col md:flex-row h-screen">
@@ -243,36 +201,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
             <span className="text-sm text-gray-500 mb-4 block">{projects[currentProjectIndex].type}</span>
             
             {/* Image Carousel */}
-            <div className="relative pb-[100%] w-full">
-              <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-                {currentImages.map((image, index) => (
-                  <img
-                    key={index}
-                    src={image}
-                    alt={`Project image ${index + 1}`}
-                    className={`absolute w-full h-full object-cover transition-opacity duration-1000 ${
-                      index === currentImageIndex || (isTransitioning && index === nextImageIndex)
-                        ? 'opacity-100'
-                        : 'opacity-0'
-                    }`}
-                  />
-                ))}
-              </div>
-              <div className="absolute inset-0 flex justify-between items-center p-2">
-                <button
-                  onClick={() => navigateImage('prev')}
-                  className="bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 transform -translate-y-1/2 absolute left-2 top-1/2"
-                >
-                  <ChevronLeft size={24} />
-                </button>
-                <button
-                  onClick={() => navigateImage('next')}
-                  className="bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 transform -translate-y-1/2 absolute right-2 top-1/2"
-                >
-                  <ChevronRight size={24} />
-                </button>
-              </div>
-            </div>
+            <ImageCarousel images={projects[currentProjectIndex].images} />
             
             <p className="text-gray-700 mb-4 mt-4">{projects[currentProjectIndex].description}</p>
             <a href={projects[currentProjectIndex].link} className='flex justify-center items-center'>
@@ -280,7 +209,6 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
                 View Project
               </button>
             </a>
-            
           </div>
         </div>
 
