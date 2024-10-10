@@ -19,7 +19,7 @@ export default function HomeClient() {
       <main className="flex flex-col">
         <section 
           id="welcome-banner" 
-          className="h-screen flex items-center justify-center flex-col bg-wave"
+          className="h-screen flex items-center justify-center flex-col"
           onMouseEnter={() => setActiveSection("welcome")}
         >
           <CircularProfile></CircularProfile>
@@ -27,7 +27,7 @@ export default function HomeClient() {
           messages={["Hi, I'm", "Salut, je suis", "Hola, soy"]}
           className={`${poppins.className} py-4 text-white text-2xl text-center`}
           typeSpeed={100}
-          deleteSpeed={75}
+          deleteSpeed={10}
           pauseDuration={2000}
           >
 

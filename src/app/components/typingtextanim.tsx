@@ -46,7 +46,7 @@ const AnimatedText: React.FC<AnimatedTextProps> = ({
   }, [currentText, isDeleting, messageIndex, messages, typeSpeed, deleteSpeed, pauseDuration]);
 
   return (
-    <div className={`flex items-center ${className}`}>
+    <div className={`pt-8 flex items-center ${className}`}>
       <div className="flex">
         <span>{currentText}</span>
         <style jsx>{`

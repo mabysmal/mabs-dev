@@ -16,7 +16,8 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         'dark-purple': '#0b081b',
-        'purple': '#4b3286'
+        'purple': '#4b3286',
+        'gray' : '#817f87',
       },
       
     },

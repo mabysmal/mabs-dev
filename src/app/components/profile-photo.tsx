@@ -1,48 +1,56 @@
-'use client'
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 type TextBox = {
   text: string;
-  initialPosition: { top: string; left: string };
+  angle: number;
 };
 
 const CircularProfile: React.FC = () => {
-  const [scrollY, setScrollY] = useState(0);
+  const [rotation, setRotation] = useState(0);
   const textBoxes: TextBox[] = [
-    { text: 'programmer', initialPosition: { top: '10%', left: '0%' } },
-    { text: 'photographer', initialPosition: { top: '50%', left: '85%' } },
-    { text: 'graphic designer', initialPosition: { top: '85%', left: '10%' } },
+    { text: 'programmer', angle: 0 },
+    { text: 'photographer', angle: 120 },
+    { text: 'graphic designer', angle: 240 },
   ];
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const interval = setInterval(() => {
+      setRotation((prevRotation) => (prevRotation + 1) % 360);
+    }, 50);
+
+    return () => clearInterval(interval);
   }, []);
 
+  const calculatePosition = (angle: number) => {
+    const radian = ((angle + rotation) * Math.PI) / 180;
+    return {
+      transform: `rotate(${radian}rad) translateX(150px) rotate(-${radian}rad)`,
+    };
+  };
+
   return (
-    <div className="relative w-64 h-64">
-      <div className="absolute inset-0 rounded-full overflow-hidden">
+    <div className="relative w-[300px] h-[300px] flex items-center justify-center">
+      <div className="absolute w-full h-full flex items-center justify-center">
         <Image
           src="/images/iox2.jpg"
-          alt="Profile"
-          layout="fill"
-          objectFit="cover"
+          alt="ProfileImage"
+          width={300}
+          height={300}
+          className="rounded-full "
         />
       </div>
       {textBoxes.map((box, index) => (
         <div
           key={index}
-          className="absolute bg-white px-2 py-1 rounded-md shadow-md text-sm"
-          style={{
-            top: `calc(${box.initialPosition.top} + ${scrollY * 0.2}px)`,
-            left: box.initialPosition.left,
-            transform: 'translate(-50%, -50%)',
-            transition: 'top 0.1s ease-out',
-          }}
+          className="absolute flex items-center justify-center w-full h-full"
         >
-          {box.text}
+          <div
+            className="text-white font-bold text-sm bg-dark-purple bg-opacity-40 rounded-md px-2 py-1"
+            style={calculatePosition(box.angle)}
+          >
+            {box.text}
+          </div>
         </div>
       ))}
     </div>
