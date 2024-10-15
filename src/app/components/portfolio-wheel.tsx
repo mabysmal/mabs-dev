@@ -124,8 +124,24 @@ interface PortfolioProps {
   isActive: boolean;
 }
 
+interface PortfolioProps {
+  isActive: boolean;
+}
+
 const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const navigateProject = (direction: 'next' | 'prev') => {
     if (!isActive) return;
@@ -135,9 +151,6 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
         : (prev - 1 + projects.length) % projects.length
     );
   };
-
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
@@ -155,6 +168,50 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
       navigateProject('prev');
     }
   };
+
+  const handleSwipe = useCallback((direction: 'next' | 'prev') => {
+    navigateProject(direction);
+  }, [navigateProject]);
+
+  if (isMobile) {
+    return (
+      <div className="flex flex-col h-screen p-4">
+        <h1 className="text-2xl font-bold mb-4">My Projects</h1>
+        <div 
+          className="flex-1 overflow-hidden"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div 
+            className="flex transition-transform duration-300 ease-in-out"
+            style={{ transform: `translateX(-${currentProjectIndex * 100}%)` }}
+          >
+            {projects.map((project, index) => (
+              <div key={project.id} className="w-full flex-shrink-0 p-2">
+                <div className="bg-white rounded-lg shadow-lg p-4">
+                  <div className="aspect-w-16 aspect-h-9 mb-4">
+                    <ImageCarousel images={project.images} />
+                  </div>
+                  <h2 className="text-xl font-semibold mb-2">{project.title}</h2>
+                  <p className="text-sm text-gray-600 mb-2">{project.type}</p>
+                  <p className="text-sm mb-4">{project.description}</p>
+                  <a href={project.link} className="block">
+                    <button className="bg-green-500 text-white px-4 py-2 rounded-full w-full">
+                      See more
+                    </button>
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="mt-4 text-center text-gray-600">
+          Swipe for navigating project cards!
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col md:flex-row h-screen border-solid border-2 border-white">
