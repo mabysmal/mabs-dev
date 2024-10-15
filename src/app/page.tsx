@@ -4,7 +4,7 @@ import './globals.css';
 
 export default function Home() {
   return (
-    <main className='bg-wave'>
+    <main className=''>
       
       <HomeClient />
       <footer className="h-20 bg-gray-200 flex items-center justify-center">

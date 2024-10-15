@@ -6,7 +6,11 @@ type TextBox = {
   angle: number;
 };
 
-const CircularProfile: React.FC = () => {
+interface CircularProfileProps {
+  speed: number; // Nueva prop para controlar la velocidad
+}
+
+const CircularProfile: React.FC<CircularProfileProps> = ({ speed }) => {
   const [rotation, setRotation] = useState(0);
   const textBoxes: TextBox[] = [
     { text: 'programmer', angle: 0 },
@@ -16,11 +20,11 @@ const CircularProfile: React.FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setRotation((prevRotation) => (prevRotation + 1) % 360);
+      setRotation((prevRotation) => (prevRotation + speed) % 360);
     }, 50);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [speed]);
 
   const calculatePosition = (angle: number) => {
     const radian = ((angle + rotation) * Math.PI) / 180;

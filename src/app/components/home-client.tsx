@@ -15,14 +15,14 @@ export default function HomeClient() {
   const [activeSection, setActiveSection] = useState("welcome");
 
   return (
-    <div className="min-h-screen">
+    <div className="bg-wave min-h-screen">
       <main className="flex flex-col">
         <section 
           id="welcome-banner" 
-          className="h-screen flex items-center justify-center flex-col"
+          className=" h-screen flex items-center justify-center flex-col"
           onMouseEnter={() => setActiveSection("welcome")}
         >
-          <CircularProfile></CircularProfile>
+          <CircularProfile speed={0.1} />
           <AnimatedText
           messages={["Hi, I'm", "Salut, je suis", "Hola, soy"]}
           className={`${poppins.className} py-4 text-white text-2xl text-center`}
@@ -37,6 +37,7 @@ export default function HomeClient() {
           </h1>
         </section>
 
+        
         <section 
           id="TopPortafolio" 
           className="h-screen"
