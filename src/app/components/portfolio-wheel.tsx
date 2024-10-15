@@ -187,7 +187,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
             className="flex transition-transform duration-300 ease-in-out"
             style={{ transform: `translateX(-${currentProjectIndex * 100}%)` }}
           >
-            {projects.map((project) => (
+            {projects.map((project, index) => (
               <div key={project.id} className="w-full flex-shrink-0 p-2">
                 <div className="bg-white rounded-lg shadow-lg p-4">
                   <div className="aspect-w-16 aspect-h-9 mb-4">
