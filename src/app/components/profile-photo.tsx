@@ -34,8 +34,8 @@ const CircularProfile: React.FC<CircularProfileProps> = ({ speed }) => {
   };
 
   return (
-    <div className="relative w-[300px] h-[300px] flex items-center justify-center">
-      <div className="absolute w-full h-full flex items-center justify-center">
+    <div className="relative w-[300px] h-[300px] flex items-center justify-center md:w-2/3">
+      <div className="absolute w-full h-full  flex items-center justify-center">
         <Image
           src="/images/iox2.jpg"
           alt="ProfileImage"

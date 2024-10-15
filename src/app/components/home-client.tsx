@@ -22,10 +22,11 @@ export default function HomeClient() {
           className=" h-screen flex items-center justify-center flex-col"
           onMouseEnter={() => setActiveSection("welcome")}
         >
-          <CircularProfile speed={0.1} />
+          <CircularProfile
+          speed={0.1} />
           <AnimatedText
           messages={["Hi, I'm", "Salut, je suis", "Hola, soy"]}
-          className={`${poppins.className} py-4 text-white text-2xl text-center`}
+          className={`${poppins.className} py-4 text-white text-2xl text-center `}
           typeSpeed={100}
           deleteSpeed={10}
           pauseDuration={2000}
