@@ -214,9 +214,9 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
   }
 
   return (
-    <div className="flex flex-col md:flex-row h-screen border-solid border-2 border-white">
+    <div className="flex flex-col md:flex-row h-screen ">
       {/* PortfolioWheel for desktop */}
-      <div className="hidden md:flex md:flex-1 md:w-[20%] items-center justify-end border-solid border-2 border-white">
+      <div className="hidden md:flex md:flex-1 md:w-[20%] items-center justify-end ">
         <div className="flex flex-col items-center">
           <button
             onClick={() => navigateProject('prev')}
@@ -247,7 +247,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
       </div>
 
       {/* Project details for desktop and mobile */}
-      <div id='CurrentProjectCard' className="md:w-3/4 flex flex-2 flex-col flex-wrap max-h-[75vh] border-solid border-2 border-white">
+      <div id='CurrentProjectCard' className="md:w-3/4 flex flex-2 flex-col flex-wrap max-h-[75vh] ">
         <div 
           className="flex-1 flex items-center justify-center p-2"
           onTouchStart={handleTouchStart}
