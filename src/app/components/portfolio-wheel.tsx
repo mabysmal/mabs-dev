@@ -47,11 +47,10 @@ const projects = [
   // ... (other projects)
 ];
 
-const ImageCarousel: React.FC<{ images: string[] }> = ({ images }) => {
+const ImageCarousel = ({ images }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(1); // Start from the second image
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
+  const timeoutRef = useRef(null);
 
   const nextImage = useCallback(() => {
     if (isTransitioning) return;
@@ -59,16 +58,10 @@ const ImageCarousel: React.FC<{ images: string[] }> = ({ images }) => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (images.length - 1) + 1); // Skip the first image
   }, [isTransitioning, images.length]);
 
-  const prevImage = useCallback(() => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentImageIndex((prevIndex) => ((prevIndex - 2 + images.length) % (images.length - 1)) + 1); // Skip the first image
-  }, [isTransitioning, images.length]);
-
   useEffect(() => {
     timeoutRef.current = setTimeout(() => {
       nextImage();
-    }, 1500);
+    }, 2000);
 
     return () => {
       if (timeoutRef.current) {
@@ -81,7 +74,7 @@ const ImageCarousel: React.FC<{ images: string[] }> = ({ images }) => {
     if (isTransitioning) {
       const timer = setTimeout(() => {
         setIsTransitioning(false);
-      }, 1500);
+      }, 1000);
       return () => clearTimeout(timer);
     }
   }, [isTransitioning]);
@@ -94,27 +87,13 @@ const ImageCarousel: React.FC<{ images: string[] }> = ({ images }) => {
             key={index + 1}
             src={image}
             alt={`Project image ${index + 2}`}
-            className={`absolute w-full h-full object-cover transition-opacity duration-1000 rounded-lg ${
+            className={`absolute w-full h-full object-cover transition-opacity duration-1000 ${
               index + 1 === currentImageIndex
                 ? 'opacity-100'
                 : 'opacity-0'
             }`}
           />
         ))}
-      </div>
-      <div className="absolute inset-0 flex justify-between items-center p-2">
-        <button
-          onClick={prevImage}
-          className="bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 transform -translate-y-1/2 absolute left-2 top-1/2"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <button
-          onClick={nextImage}
-          className="bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 transform -translate-y-1/2 absolute right-2 top-1/2"
-        >
-          <ChevronRight size={24} />
-        </button>
       </div>
     </div>
   );
@@ -128,7 +107,7 @@ interface PortfolioProps {
   isActive: boolean;
 }
 
-const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
+const Portfolio = ({ isActive }) => {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
@@ -136,14 +115,14 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 800);
+      setIsMobile(window.innerWidth < 768);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const navigateProject = (direction: 'next' | 'prev') => {
+  const navigateProject = (direction) => {
     if (!isActive) return;
     setCurrentProjectIndex((prev) => 
       direction === 'next' 
@@ -152,11 +131,11 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
     );
   };
 
-  const handleTouchStart = (e: React.TouchEvent) => {
+  const handleTouchStart = (e) => {
     setTouchStart(e.targetTouches[0].clientX);
   };
 
-  const handleTouchMove = (e: React.TouchEvent) => {
+  const handleTouchMove = (e) => {
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
@@ -212,7 +191,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
       </div>
     );
   }
-
+  
   return (
     <div className="flex flex-col md:flex-row h-screen ">
       {/* PortfolioWheel for desktop */}
