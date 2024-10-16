@@ -1,7 +1,8 @@
 'use client';
 import Image from 'next/image';
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import ImageCarousel from './imagecarousel';
 
 
 const projects = [
@@ -45,64 +46,13 @@ const projects = [
     description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.',
     link: 'https://macanazos.memaxo.art/'
   },
-  // ... (other projects)
 ];
 
-const ImageCarousel = ({ images }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(1);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const timeoutRef = useRef(null);
+interface PortfolioProps {
+  isActive: boolean;
+}
 
-  const nextImage = useCallback(() => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (images.length - 1) + 1);
-  }, [isTransitioning, images.length]);
-
-  useEffect(() => {
-    timeoutRef.current = setTimeout(() => {
-      nextImage();
-    }, 2000);
-
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, [currentImageIndex, nextImage]);
-
-  useEffect(() => {
-    if (isTransitioning) {
-      const timer = setTimeout(() => {
-        setIsTransitioning(false);
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [isTransitioning]);
-
-  return (
-    <div className="relative pb-[100%] w-full">
-      <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-        {images.slice(1).map((image, index) => (
-          <Image
-            key={index + 1}
-            src={image}
-            alt={`Project image ${index + 2}`}
-            layout="fill"
-            objectFit="cover"
-            className={`transition-opacity duration-1000 ${
-              index + 1 === currentImageIndex
-                ? 'opacity-100'
-                : 'opacity-0'
-            }`}
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const Portfolio = ({ isActive }) => {
+const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
@@ -117,7 +67,7 @@ const Portfolio = ({ isActive }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const navigateProject = (direction) => {
+  const navigateProject = (direction: 'next' | 'prev') => {
     if (!isActive) return;
     setCurrentProjectIndex((prev) => 
       direction === 'next' 
@@ -126,11 +76,11 @@ const Portfolio = ({ isActive }) => {
     );
   };
 
-  const handleTouchStart = (e) => {
+  const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
   };
 
-  const handleTouchMove = (e) => {
+  const handleTouchMove = (e: React.TouchEvent) => {
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
@@ -142,7 +92,7 @@ const Portfolio = ({ isActive }) => {
       navigateProject('prev');
     }
   };
-
+// mobile screen
   if (isMobile) {
     return (
       <div className="flex flex-col h-screen p-4">
@@ -182,7 +132,7 @@ const Portfolio = ({ isActive }) => {
       </div>
     );
   }
-
+  // desktop screen
   return (
     <div className="flex flex-col md:flex-row h-screen ">
       <div className="hidden md:flex md:flex-1 md:w-[20%] items-center justify-end ">
@@ -240,27 +190,9 @@ const Portfolio = ({ isActive }) => {
             </a>
           </div>
         </div>
+        
 
-        <div className="md:hidden flex justify-between p-4 w-full">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              navigateProject('prev');
-            }}
-            className="bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <ChevronLeft size={40} />
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              navigateProject('next');
-            }}
-            className="bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <ChevronRight size={40} />
-          </button>
-        </div>
+
       </div>
     </div>
   );
