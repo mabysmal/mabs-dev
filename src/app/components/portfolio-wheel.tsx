@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -48,14 +49,14 @@ const projects = [
 ];
 
 const ImageCarousel = ({ images }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(1); // Start from the second image
+  const [currentImageIndex, setCurrentImageIndex] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const timeoutRef = useRef(null);
 
   const nextImage = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (images.length - 1) + 1); // Skip the first image
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (images.length - 1) + 1);
   }, [isTransitioning, images.length]);
 
   useEffect(() => {
@@ -83,11 +84,13 @@ const ImageCarousel = ({ images }) => {
     <div className="relative pb-[100%] w-full">
       <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
         {images.slice(1).map((image, index) => (
-          <img
+          <Image
             key={index + 1}
             src={image}
             alt={`Project image ${index + 2}`}
-            className={`absolute w-full h-full object-cover transition-opacity duration-1000 ${
+            layout="fill"
+            objectFit="cover"
+            className={`transition-opacity duration-1000 ${
               index + 1 === currentImageIndex
                 ? 'opacity-100'
                 : 'opacity-0'
@@ -98,14 +101,6 @@ const ImageCarousel = ({ images }) => {
     </div>
   );
 };
-
-interface PortfolioProps {
-  isActive: boolean;
-}
-
-interface PortfolioProps {
-  isActive: boolean;
-}
 
 const Portfolio = ({ isActive }) => {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
@@ -148,10 +143,6 @@ const Portfolio = ({ isActive }) => {
     }
   };
 
-  // const handleSwipe = useCallback((direction: 'next' | 'prev') => {
-  //   navigateProject(direction);
-  // }, [navigateProject]);
-
   if (isMobile) {
     return (
       <div className="flex flex-col h-screen p-4">
@@ -191,9 +182,9 @@ const Portfolio = ({ isActive }) => {
       </div>
     );
   }
+
   return (
     <div className="flex flex-col md:flex-row h-screen ">
-      {/* PortfolioWheel for desktop */}
       <div className="hidden md:flex md:flex-1 md:w-[20%] items-center justify-end ">
         <div className="flex flex-col items-center">
           <button
@@ -204,12 +195,14 @@ const Portfolio = ({ isActive }) => {
           </button>
           <div className="flex flex-col items-center space-y-4">
             {projects.map((project, index) => (
-              <img
+              <Image
                 key={project.id}
                 src={project.images[0]}
                 alt={project.title}
+                width={96}
+                height={96}
                 onClick={() => setCurrentProjectIndex(index)}
-                className={`w-24 h-24 rounded-full transition-all duration-300 cursor-pointer ${
+                className={`rounded-full transition-all duration-300 cursor-pointer ${
                   index === currentProjectIndex ? 'scale-150 border-4 border-blue-500' : 'opacity-50 hover:opacity-75'
                 }`}
               />
@@ -224,7 +217,6 @@ const Portfolio = ({ isActive }) => {
         </div>
       </div>
 
-      {/* Project details for desktop and mobile */}
       <div id='CurrentProjectCard' className="md:w-3/4 flex flex-2 flex-col flex-wrap max-h-[75vh] ">
         <div 
           className="flex-1 flex items-center justify-center p-2"
@@ -236,11 +228,9 @@ const Portfolio = ({ isActive }) => {
             <h1 className="text-2xl md:text-3xl font-bold mb-2">{projects[currentProjectIndex].title}</h1>
             <span className="text-sm text-gray-500 mb-4 block">{projects[currentProjectIndex].type}</span>
             
-            {/* Image Carousel */}
             <div id='ImageCarouselContainer' className='w-1/2 h-1/2' >
-              <ImageCarousel  images={projects[currentProjectIndex].images} />
+              <ImageCarousel images={projects[currentProjectIndex].images} />
             </div>
-            
             
             <p className="text-gray-700 mb-4 mt-4 w-3/4 mx-auto">{projects[currentProjectIndex].description}</p>
             <a href={projects[currentProjectIndex].link} className='flex justify-center items-center'>
@@ -251,7 +241,6 @@ const Portfolio = ({ isActive }) => {
           </div>
         </div>
 
-        {/* Navigation arrows for mobile */}
         <div className="md:hidden flex justify-between p-4 w-full">
           <button
             onClick={(e) => {
