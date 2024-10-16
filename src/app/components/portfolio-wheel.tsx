@@ -69,11 +69,13 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
 
   const navigateProject = (direction: 'next' | 'prev') => {
     if (!isActive) return;
-    setCurrentProjectIndex((prev) => 
-      direction === 'next' 
-        ? (prev + 1) % projects.length 
-        : (prev - 1 + projects.length) % projects.length
-    );
+    setCurrentProjectIndex((prev) => {
+      if (direction === 'next') {
+        return (prev + 1) % projects.length;
+      } else {
+        return (prev - 1 + projects.length) % projects.length;
+      }
+    });
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -95,10 +97,10 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
 
   if (isMobile) {
     return (
-      <div className="flex flex-col h-screen p-4">
+      <div className="flex flex-col h-screen p-4 relative">
         <h1 className="text-2xl font-bold mb-4">My Projects</h1>
         <div 
-          className="flex-1 overflow-hidden"
+          className="flex-1 overflow-hidden relative"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
@@ -110,16 +112,11 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
             {projects.map((project, index) => (
               <div 
                 key={project.id} 
-                className={`w-full flex-shrink-0 p-2 transition-all duration-300 ${
-                  index === currentProjectIndex 
-                    ? 'scale-100 opacity-100' 
-                    : 'scale-90 opacity-50'
-                }`}
+                className="w-full flex-shrink-0 p-2 transition-all duration-300"
                 style={{
                   transform: `translateX(${(index - currentProjectIndex) * 100}%)`,
-                  position: 'absolute',
-                  width: '100%',
-                  left: 0,
+                  opacity: index === currentProjectIndex ? 1 : 0.5,
+                  scale: index === currentProjectIndex ? '1' : '0.9',
                 }}
               >
                 <div className="bg-white rounded-lg shadow-lg p-4">
@@ -138,9 +135,25 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
               </div>
             ))}
           </div>
+          
+          {/* Left Chevron */}
+          <button 
+            onClick={() => navigateProject('prev')}
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 shadow-md z-10"
+          >
+            <ChevronLeft size={24} />
+          </button>
+
+          {/* Right Chevron */}
+          <button 
+            onClick={() => navigateProject('next')}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 shadow-md z-10"
+          >
+            <ChevronRight size={24} />
+          </button>
         </div>
-        <div className="mt-4 text-center text-white">
-          Swipe for navigating project cards!
+        <div className="mt-4 text-center text-gray-600">
+          Swipe or use arrows to navigate project cards!
         </div>
       </div>
     );
