@@ -92,7 +92,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
       navigateProject('prev');
     }
   };
-// mobile screen
+
   if (isMobile) {
     return (
       <div className="flex flex-col h-screen p-4">
@@ -107,8 +107,21 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
             className="flex transition-transform duration-300 ease-in-out"
             style={{ transform: `translateX(-${currentProjectIndex * 100}%)` }}
           >
-            {projects.map((project) => (
-              <div key={project.id} className="w-full flex-shrink-0 p-2">
+            {projects.map((project, index) => (
+              <div 
+                key={project.id} 
+                className={`w-full flex-shrink-0 p-2 transition-all duration-300 ${
+                  index === currentProjectIndex 
+                    ? 'scale-100 opacity-100' 
+                    : 'scale-90 opacity-50'
+                }`}
+                style={{
+                  transform: `translateX(${(index - currentProjectIndex) * 100}%)`,
+                  position: 'absolute',
+                  width: '100%',
+                  left: 0,
+                }}
+              >
                 <div className="bg-white rounded-lg shadow-lg p-4">
                   <div className="aspect-w-16 aspect-h-9 mb-4">
                     <ImageCarousel images={project.images} />
@@ -126,12 +139,13 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
             ))}
           </div>
         </div>
-        <div className="mt-4 text-center text-gray-600">
+        <div className="mt-4 text-center text-white">
           Swipe for navigating project cards!
         </div>
       </div>
     );
   }
+
   // desktop screen
   return (
     <div className="flex flex-col md:flex-row h-screen ">
