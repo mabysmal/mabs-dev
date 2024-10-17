@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import CircularProfile from "./profile-photo";
-import PortfolioWheel from "./portfolio-wheel";
+import Portfolio from "./portfolio-wheel";
 import { Poppins } from 'next/font/google';
 import AnimatedText from "./typingtextanim";
 
@@ -44,7 +44,7 @@ export default function HomeClient() {
           className="h-screen"
           onMouseEnter={() => setActiveSection("portfolio")}
         >
-          <PortfolioWheel isActive={activeSection === "portfolio"}></PortfolioWheel>
+          <Portfolio isActive={activeSection === "portfolio"}></Portfolio>
         </section>
 
         <section 
