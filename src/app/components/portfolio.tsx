@@ -98,7 +98,9 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
   if (isMobile) {
     return (
       <div className="flex flex-col h-screen p-4 relative">
-        <h1 className="text-2xl font-bold mb-4">My Projects</h1>
+        <div className="mt-4 text-center text-white">
+          Swipe or use arrows to navigate project cards!
+        </div>
         <div 
           className="flex-1 overflow-hidden relative"
           onTouchStart={handleTouchStart}
@@ -152,9 +154,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
             <ChevronRight size={24} />
           </button>
         </div>
-        <div className="mt-4 text-center text-gray-600">
-          Swipe or use arrows to navigate project cards!
-        </div>
+        
       </div>
     );
   }
