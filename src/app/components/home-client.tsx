@@ -44,7 +44,7 @@ export default function HomeClient() {
           className="h-screen"
           onMouseEnter={() => setActiveSection("portfolio")}
         >
-          <Portfolio isActive={activeSection === "portfolio"}></Portfolio>
+          <PortfolioWheel isActive={activeSection === "portfolio"}></PortfolioWheel>
         </section>
 
         <section 

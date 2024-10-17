@@ -39,8 +39,8 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
   }, [isTransitioning]);
 
   return (
-    <div className="relative pb-[100%] w-full">
-      <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+    <div className="relative pb-[100%] w-full ">
+      <div className="absolute inset-0 flex items-center justify-center overflow-hidden rounded-xl">
         {images.slice(1).map((image, index) => (
           <Image
             key={index + 1}

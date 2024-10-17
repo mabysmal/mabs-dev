@@ -7,6 +7,7 @@ export default function Home() {
   return (
     <main className=''>
       
+     
       <HomeClient />
       <footer className="h-20 bg-gray-200 flex items-center justify-center">
       <p>© 2023 Mabel Castillo</p>
