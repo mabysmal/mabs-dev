@@ -43,7 +43,7 @@ const CircularProfile: React.FC<CircularProfileProps> = ({ speed }) => {
 
   const calculatePosition = (angle: number) => {
     const radian = ((angle + rotation) * Math.PI) / 180;
-    const translateX = isMobile ? 120 : 150;
+    const translateX = isMobile ? 125 : 150;
     return {
       transform: `rotate(${radian}rad) translateX(${translateX}px) rotate(-${radian}rad)`,
     };

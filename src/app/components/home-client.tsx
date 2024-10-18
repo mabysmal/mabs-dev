@@ -2,9 +2,10 @@
 
 import React, { useState } from "react";
 import CircularProfile from "./profile-photo";
-import Portfolio from "./portfolio-wheel";
+import Portfolio from "./portfolio";
 import { Poppins } from 'next/font/google';
 import AnimatedText from "./typingtextanim";
+import FloatingChevron from "./floating-down-chevron";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -36,6 +37,9 @@ export default function HomeClient() {
           <h1 className="pt-2 text-white text-8xl font-magic-retro glow animate-glow items-center justify-center text-center">
             Mabel Castillo
           </h1>
+          <div>
+            <FloatingChevron></FloatingChevron>
+          </div>
         </section>
 
         
@@ -44,7 +48,7 @@ export default function HomeClient() {
           className="h-screen"
           onMouseEnter={() => setActiveSection("portfolio")}
         >
-          <PortfolioWheel isActive={activeSection === "portfolio"}></PortfolioWheel>
+          <Portfolio isActive={activeSection === "portfolio"}></Portfolio>
         </section>
 
         <section 
