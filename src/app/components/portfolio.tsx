@@ -5,6 +5,7 @@ import { ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
 import ImageCarousel from './imagecarousel';
 
 
+
 const projects = [
   {
     id: 1,
@@ -97,31 +98,31 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
 
   if (isMobile) {
     return (
-      <div className="flex flex-col h-screen p-4 relative">
-        <div className="mt-4 text-center text-white">
+      <div className="flex flex-col h-screen">
+        <div className="text-sm text-center text-white p-2 mt-6">
           Swipe or use arrows to navigate project cards!
         </div>
         <div 
-          className="flex-1 overflow-hidden relative"
+          className="flex-1 overflow-hidden relative flex flex-col items-center"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
           <div 
-            className="flex transition-transform duration-300 ease-in-out"
+            className="flex transition-transform duration-300 ease-in-out absolute w-full h-full"
             style={{ transform: `translateX(-${currentProjectIndex * 100}%)` }}
           >
             {projects.map((project, index) => (
               <div 
                 key={project.id} 
-                className="w-full flex-shrink-0 p-2 transition-all duration-300"
+                className="w-full h-full flex-shrink-0 p-2 transition-all duration-300 flex justify-center items-start"
                 style={{
                   transform: `translateX(${(index - currentProjectIndex) * 100}%)`,
                   opacity: index === currentProjectIndex ? 1 : 0.5,
                   scale: index === currentProjectIndex ? '1' : '0.9',
                 }}
               >
-                <div className="bg-white rounded-lg shadow-lg p-4">
+                <div className="bg-white rounded-lg shadow-lg p-4 w-[80%] max-w-sm">
                   <div className="aspect-w-16 aspect-h-9 mb-4">
                     <ImageCarousel images={project.images} />
                   </div>
@@ -136,32 +137,44 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
                 </div>
               </div>
             ))}
+            <svg
+              id='next-section'
+              xmlns="https://api.iconify.design/solar:double-alt-arrow-down-outline.svg"
+              className="h-10 w-10 md:h-15 md:w-15"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="white"
+            >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={3}
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
           </div>
           
-          {/* Left Chevron */}
+          {/* Navigation buttons */}
           <button 
             onClick={() => navigateProject('prev')}
             className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 shadow-md z-10"
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft size={15} />
           </button>
-
-          {/* Right Chevron */}
           <button 
             onClick={() => navigateProject('next')}
             className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 shadow-md z-10"
           >
-            <ChevronRight size={24} />
+            <ChevronRight size={15} />
           </button>
         </div>
-        
       </div>
     );
   }
 
   // desktop screen
   return (
-    <div className="flex flex-col md:flex-row h-screen ">
+    <div className="flex flex-col md:flex-row w-screen h-screen ">
       <div className="hidden md:flex md:flex-1 md:w-[20%] items-center justify-end ">
         <div className="flex flex-col items-center">
           <button
@@ -221,6 +234,23 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
 
 
       </div>
+
+      <svg
+        id='next-section'
+        xmlns="https://api.iconify.design/solar:double-alt-arrow-down-outline.svg"
+        className="h-10 w-10 md:h-15 md:w-15"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="white"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={3}
+          d="M19 9l-7 7-7-7"
+        />
+      </svg>
+    
     </div>
   );
 };

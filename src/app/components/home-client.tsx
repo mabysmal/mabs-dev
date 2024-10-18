@@ -38,14 +38,14 @@ export default function HomeClient() {
             Mabel Castillo
           </h1>
           <div>
-            <FloatingChevron></FloatingChevron>
+            <FloatingChevron className="bottom-4"></FloatingChevron>
           </div>
         </section>
 
         
         <section 
           id="TopPortafolio" 
-          className="h-screen"
+          className="w-full h-full"
           onMouseEnter={() => setActiveSection("portfolio")}
         >
           <Portfolio isActive={activeSection === "portfolio"}></Portfolio>
