@@ -10,7 +10,7 @@ export default function Home() {
      
       <HomeClient />
       <footer className="h-20 bg-gray-200 flex items-center justify-center">
-      <p>© 2023 Mabel Castillo</p>
+      <p>© 2024 Mabel Castillo</p>
       </footer>
     </main>
   );

@@ -38,6 +38,9 @@ export default function HomeClient() {
             Mabel Castillo
           </h1>
           <div>
+            <button>
+              Contact Me!
+            </button>
             <FloatingChevron className="bottom-4"></FloatingChevron>
           </div>
         </section>

@@ -25,11 +25,11 @@ const projects = [
   },
   {
     id: 1,
-    title: 'Macanazos 3',
-    type: 'Retail Website',
-    images: ['/images/macanazoslogo.png', '/images/macanazosland.png', '/images/macanazoscatalogo.png', '/images/macanazosorder.png', '/images/macanazosaboutus.png'],
+    title: 'Recetas Mabs',
+    type: 'Cooking Website',
+    images: ['/images/recetasimg.jpg', '/images/recetashome.png', '/images/recetashome2.png', '/images/recetasrecetas.png', '/images/recetasrecetas2.png'],
     description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.',
-    link: 'https://macanazos.memaxo.art/'
+    link: 'https://recetas.mabs.dev/'
   },
   {
     id: 1,
@@ -137,21 +137,6 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
                 </div>
               </div>
             ))}
-            <svg
-              id='next-section'
-              xmlns="https://api.iconify.design/solar:double-alt-arrow-down-outline.svg"
-              className="h-10 w-10 md:h-15 md:w-15"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="white"
-            >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={3}
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
           </div>
           
           {/* Navigation buttons */}
@@ -223,7 +208,8 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
             </div>
             
             <p className="text-gray-700 mb-4 mt-4 w-3/4 mx-auto">{projects[currentProjectIndex].description}</p>
-            <a href={projects[currentProjectIndex].link} className='flex justify-center items-center'>
+            <a href={projects[currentProjectIndex].link} className='flex justify-center items-center' 
+            target="_blank" rel="noopener noreferrer">
               <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
                 View Project
               </button>
@@ -234,22 +220,6 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
 
 
       </div>
-
-      <svg
-        id='next-section'
-        xmlns="https://api.iconify.design/solar:double-alt-arrow-down-outline.svg"
-        className="h-10 w-10 md:h-15 md:w-15"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="white"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={3}
-          d="M19 9l-7 7-7-7"
-        />
-      </svg>
     
     </div>
   );
