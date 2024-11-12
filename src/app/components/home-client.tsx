@@ -53,13 +53,13 @@ export default function HomeClient() {
           <Portfolio isActive={activeSection === "portfolio"}></Portfolio>
         </section>
 
-        <section 
+        {/* <section 
           id="About Me" 
           className="h-screen flex items-center justify-center"
           onMouseEnter={() => setActiveSection("about")}
         >
           <h2 className="text-3xl font-semibold">About Me</h2>
-        </section>
+        </section> */}
       </main>
     </div>
   );

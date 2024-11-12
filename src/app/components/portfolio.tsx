@@ -12,7 +12,7 @@ const projects = [
     title: 'Macanazos',
     type: 'Retail Website',
     images: ['/images/macanazoslogo.png', '/images/macanazosland.png', '/images/macanazoscatalogo.png', '/images/macanazosorder.png', '/images/macanazosaboutus.png'],
-    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.',
+    description: 'Website for the mexican store Macanazos, which sells their services of personalized cartoons in a variety of mediums.',
     link: 'https://macanazos.memaxo.art/'
   },
   {
@@ -20,7 +20,7 @@ const projects = [
     title: 'Recetas Mabs',
     type: 'Cooking Website',
     images: ['/images/recetasimg.jpg', '/images/recetashome.png', '/images/recetashome2.png', '/images/recetasrecetas.png', '/images/recetasrecetas2.png'],
-    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.',
+    description: 'A website for recipes from my family and friends. A personal project that made me closer to the people I love through cooking.',
     link: 'https://recetas.mabs.dev/'
   },
   {
@@ -28,7 +28,7 @@ const projects = [
     title: 'Posts for Fall Out Boy Dreamers',
     type: 'Editorial Design',
     images: ['/images/FOBDreamerslogo.jpg', '/images/FOBDreamersWP.jpeg', '/images/FOBDreamersHorario.jpg', '/images/FOBDreamersFreebies.jpg', '/images/FOBDreamersPDCDMX.jpeg', '/images/FOBDreamersPD.jpg', '/images/FOBDreamersSeashell.jpeg', '/images/FOBDreamersGracias.jpg'],
-    description: 'Posts made for the official mexican fanclub for Fall Out Boy showing announcements for both shows in Mexico.',
+    description: 'Posts made for the official mexican fanclub for Fall Out Boy showing announcements for both shows in Guadalajara and Mexico City.',
     link: 'https://www.facebook.com/fob.dreamers'
   },
 ];
@@ -194,7 +194,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
             <p className="text-gray-700 mb-4 mt-4 w-3/4 mx-auto">{projects[currentProjectIndex].description}</p>
             <a href={projects[currentProjectIndex].link} className='flex justify-center items-center' 
             target="_blank" rel="noopener noreferrer">
-              <button className="bg-dark-orange text-white px-4 py-2 rounded hover:bg-dark-purple focus:outline-none focus:border-4 focus:border-orange transition-colors">
+              <button className="bg-dark-orange text-white px-4 py-2 rounded hover:bg-dark-purple rounded-xl focus:outline-none focus:border-4 focus:border-orange transition-colors">
                 View Project
               </button>
             </a>
