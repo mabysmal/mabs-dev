@@ -17,14 +17,6 @@ const projects = [
   },
   {
     id: 1,
-    title: 'Posts for Fall Out Boy Dreamers',
-    type: 'Editorial Design',
-    images: ['/images/FOBDreamerslogo.jpg', '/images/FOBDreamersWP.jpeg', '/images/FOBDreamersHorario.jpg', '/images/FOBDreamersFreebies.jpg', '/images/FOBDreamersPDCDMX.jpeg', '/images/FOBDreamersPD.jpg', '/images/FOBDreamersSeashell.jpeg', '/images/FOBDreamersGracias.jpg'],
-    description: 'Posts made for the official mexican fanclub for Fall Out Boy showing announcements for both shows in Mexico.',
-    link: 'https://macanazos.memaxo.art/'
-  },
-  {
-    id: 1,
     title: 'Recetas Mabs',
     type: 'Cooking Website',
     images: ['/images/recetasimg.jpg', '/images/recetashome.png', '/images/recetashome2.png', '/images/recetasrecetas.png', '/images/recetasrecetas2.png'],
@@ -33,19 +25,11 @@ const projects = [
   },
   {
     id: 1,
-    title: 'Macanazos 4',
-    type: 'Retail Website',
-    images: ['/images/macanazoslogo.png', '/images/macanazosland.png', '/images/macanazoscatalogo.png', '/images/macanazosorder.png', '/images/macanazosaboutus.png'],
-    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.',
-    link: 'https://macanazos.memaxo.art/'
-  },
-  {
-    id: 1,
-    title: 'Macanazos 5',
-    type: 'Retail Website',
-    images: ['/images/macanazoslogo.png', '/images/macanazosland.png', '/images/macanazoscatalogo.png', '/images/macanazosorder.png', '/images/macanazosaboutus.png'],
-    description: 'Website for the mexican store Macanazos, which sells their services of cartoons in a variety of mediums.',
-    link: 'https://macanazos.memaxo.art/'
+    title: 'Posts for Fall Out Boy Dreamers',
+    type: 'Editorial Design',
+    images: ['/images/FOBDreamerslogo.jpg', '/images/FOBDreamersWP.jpeg', '/images/FOBDreamersHorario.jpg', '/images/FOBDreamersFreebies.jpg', '/images/FOBDreamersPDCDMX.jpeg', '/images/FOBDreamersPD.jpg', '/images/FOBDreamersSeashell.jpeg', '/images/FOBDreamersGracias.jpg'],
+    description: 'Posts made for the official mexican fanclub for Fall Out Boy showing announcements for both shows in Mexico.',
+    link: 'https://www.facebook.com/fob.dreamers'
   },
 ];
 
@@ -164,9 +148,9 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
         <div className="flex flex-col items-center">
           <button
             onClick={() => navigateProject('prev')}
-            className="mb-4 text-gray-400 hover:text-gray-600 transition-colors"
+            className="mb-4 text-white hover:text-gray-200 transition-colors"
           >
-            <ChevronUp size={32} className='pb-4' />
+            <ChevronUp size={32} />
           </button>
           <div className="flex flex-col items-center space-y-4">
             {projects.map((project, index) => (
@@ -178,14 +162,14 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
                 height={96}
                 onClick={() => setCurrentProjectIndex(index)}
                 className={`rounded-full transition-all duration-300 cursor-pointer ${
-                  index === currentProjectIndex ? 'scale-150 border-4 border-blue-500' : 'opacity-50 hover:opacity-75'
+                  index === currentProjectIndex ? 'scale-150 border-4 border-orange' : 'opacity-50 hover:opacity-75'
                 }`}
               />
             ))}
           </div>
           <button
             onClick={() => navigateProject('next')}
-            className="mt-4 text-gray-400 hover:text-gray-600 transition-colors"
+            className="mt-4 text-white hover:text-gray-200 transition-colors"
           >
             <ChevronDown size={32} />
           </button>
@@ -210,7 +194,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
             <p className="text-gray-700 mb-4 mt-4 w-3/4 mx-auto">{projects[currentProjectIndex].description}</p>
             <a href={projects[currentProjectIndex].link} className='flex justify-center items-center' 
             target="_blank" rel="noopener noreferrer">
-              <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+              <button className="bg-dark-orange text-white px-4 py-2 rounded hover:bg-dark-purple focus:outline-none focus:border-4 focus:border-orange transition-colors">
                 View Project
               </button>
             </a>
