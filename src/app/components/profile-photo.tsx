@@ -50,7 +50,7 @@ const CircularProfile: React.FC<CircularProfileProps> = ({ speed }) => {
   };
 
   return (
-    <div className="relative w-[250px] h-[250px] md:w-[350px] md:h-[350px] flex items-center justify-center">
+    <div className="mt-6 relative w-[250px] h-[250px] md:w-[350px] md:h-[350px] flex items-center justify-center">
       <div className="absolute w-full h-full flex items-center justify-center">
         <Image
           src="/images/iox2.jpg"

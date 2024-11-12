@@ -19,6 +19,7 @@ const config: Config = {
         'purple': '#4b3286',
         'gray' : '#817f87',
         'purple-gray' : '#312d47',
+        'orange': '#e38f22',
       },
       
     },
