@@ -9,6 +9,14 @@ import ImageCarousel from './imagecarousel';
 const projects = [
   {
     id: 1,
+    title: 'Netushi',
+    type: 'Restaurant Website',
+    images: ['/images/netushi logo.png', '/images/netushi 1.png', '/images/netushi 2.png', '/images/netushi 3.png', '/images/netushi 4.png', '/images/netushi 5.png'],
+    description: 'Posts made for the official mexican fanclub for Fall Out Boy showing announcements for both shows in Guadalajara and Mexico City.',
+    link: 'https://www.facebook.com/fob.dreamers'
+  },
+  {
+    id: 1,
     title: 'Macanazos',
     type: 'Retail Website',
     images: ['/images/macanazoslogo.png', '/images/macanazosland.png', '/images/macanazoscatalogo.png', '/images/macanazosorder.png', '/images/macanazosaboutus.png'],
