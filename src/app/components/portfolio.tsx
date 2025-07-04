@@ -4,9 +4,15 @@ import React, { useState, useEffect } from 'react';
 import { ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import ImageCarousel from './imagecarousel';
 
-
-
 const projects = [
+  {
+    id: 1,
+    title: 'Amygo.ca',
+    type: 'Biotechnology Website',
+    images: ['/images/amygo logo.png', '/images/amygo 1.png', '/images/amygo 2.png', '/images/amygo 3.png', '/images/amygo 4.png', '/images/amygo 5.png', '/images/amygo 6.png', ],
+    description: 'Website for the biotechnology company Amygo Biotechnologies Inc.',
+    link: 'https://amygo.ca'
+  },
   {
     id: 1,
     title: 'Netushi',
@@ -114,8 +120,8 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
                   scale: index === currentProjectIndex ? '1' : '0.9',
                 }}
               >
-                <div className="bg-white rounded-lg shadow-lg p-4 w-[80%] max-w-sm">
-                  <div className="aspect-w-16 aspect-h-9 mb-4">
+                <div className="bg-white rounded-lg shadow-lg p-4 w-3/4 max-w-sm">
+                  <div className="aspect-w-16  aspect-h-9 mb-4">
                     <ImageCarousel images={project.images} />
                   </div>
                   <h2 className="text-xl font-semibold mb-2">{project.title}</h2>
@@ -151,16 +157,17 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
 
   // desktop screen
   return (
-    <div className="flex flex-col md:flex-row w-screen h-screen ">
-      <div className="hidden md:flex md:flex-1 md:w-[20%] items-center justify-end ">
-        <div className="flex flex-col items-center">
+    <div className="flex flex-col md:flex-row w-screen h-screen pt-12">
+      {/* Contenedor izquierdo - alineado al lado derecho y con altura ajustada */}
+      <div className="hidden md:flex md:flex-1 md:w-[20%] items-center justify-end">
+        <div className="flex flex-col items-center justify-center h-[75vh]">
           <button
             onClick={() => navigateProject('prev')}
             className="mb-4 text-white hover:text-gray-200 transition-colors"
           >
             <ChevronUp size={32} />
           </button>
-          <div className="flex flex-col items-center space-y-4">
+          <div className="flex flex-col items-center space-y-4 flex-1 justify-center">
             {projects.map((project, index) => (
               <Image
                 key={project.id}
@@ -184,18 +191,24 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
         </div>
       </div>
 
-      <div id='CurrentProjectCard' className="md:w-3/4 flex flex-2 flex-col flex-wrap max-h-[75vh] ">
+      {/* Contenedor derecho */}
+      <div id='CurrentProjectCard' className="md:w-3/4 flex flex-2 flex-col flex-wrap max-h-[75vh]">
         <div 
           className="flex-1 flex items-center justify-center p-2"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
+          {/* Contenedor blanco con contenido centrado */}
           <div className="bg-white p-4 md:p-8 rounded-lg shadow-lg w-full max-w-3xl flex-wrap">
-            <h1 className="text-2xl md:text-3xl font-bold mb-2">{projects[currentProjectIndex].title}</h1>
-            <span className="text-sm text-gray-500 mb-4 block">{projects[currentProjectIndex].type}</span>
+            {/* Título y tipo centrados en pantallas medianas+ */}
+            <div className="md:text-center">
+              <h1 className="text-2xl md:text-3xl font-bold mb-2">{projects[currentProjectIndex].title}</h1>
+              <span className="text-sm text-gray-500 mb-4 block">{projects[currentProjectIndex].type}</span>
+            </div>
             
-            <div id='ImageCarouselContainer' className='w-1/2 h-1/2' >
+            {/* Carrusel centrado en pantallas medianas+ */}
+            <div id='ImageCarouselContainer' className='w-1/2 h-1/2 md:w-2/3 md:h-2/3 md:mx-auto mb-4'>
               <ImageCarousel images={projects[currentProjectIndex].images} />
             </div>
             
@@ -208,11 +221,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
             </a>
           </div>
         </div>
-        
-
-
       </div>
-    
     </div>
   );
 };
