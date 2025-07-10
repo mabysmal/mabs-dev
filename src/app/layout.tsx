@@ -4,14 +4,19 @@ import './styles/fonts.css';
 import { Poppins } from 'next/font/google'
 
 const poppins = Poppins({
-  subsets: ['latin'], // O cualquier otro conjunto de caracteres que necesites
-  weight: ['400', '700'], // Selecciona los pesos que necesitas
+  subsets: ['latin'],
+  weight: ['400', '700'],
 });
 
 
 export const metadata: Metadata = {
   title: "Mabs",
   description: "Mabel Castillo's portfolio website.",
+  keywords: "frontend, front-end, front, end, web, website, dev, developer, a",
+  authors: [{ name: "Mabel Castillo" }],
+  icons: {
+    icon: '/images/icon mabs.svg',
+  },
 };
 
 export default function RootLayout({
