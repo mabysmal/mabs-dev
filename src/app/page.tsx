@@ -22,10 +22,10 @@ export default function Home() {
               gtag('config', 'G-55733BR8EZ');
             `}
           </Script>
-          
-          <title>Mabel Castillo</title>
+
+          <title>Mabel Castillo | Front-End Developer</title>
           <meta name="description" content="Mabel's Portfolio" />
-          <meta name="keywords" content="frontend, front-end, front, end, web, website, dev, developer, a" />
+          <meta name="keywords" content="frontend, front-end, front, end, web, website, dev, developer, canada, freelance, next.js, react, typescript, tailwind, javascript, responsive, cms, git, github, bc, british, columbia, british columbia, coquitlam, burnaby, new westminster, new, westminster, surrey, vancouver, richmond, ecommerce, e-commerce, business" />
           <meta name="author" content="Mabel Castillo" />
       </head>
 

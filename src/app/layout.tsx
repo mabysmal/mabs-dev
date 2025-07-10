@@ -12,7 +12,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Mabs",
   description: "Mabel Castillo's portfolio website.",
-  keywords: "frontend, front-end, front, end, web, website, dev, developer, a",
+  keywords: "frontend, front-end, front, end, web, website, dev, developer, canada, freelance, next.js, react, typescript, tailwind, javascript, responsive, cms, git, github, bc, british, columbia, british columbia, coquitlam, burnaby, new westminster, new, westminster, surrey, vancouver, richmond, ecommerce, e-commerce, business ",
   authors: [{ name: "Mabel Castillo" }],
   icons: {
     icon: '/images/icon mabs.svg',
