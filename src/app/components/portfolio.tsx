@@ -67,7 +67,7 @@ const graphicDesignProjects: Project[] = [
     tools: ['Photoshop', 'Illustrator', 'InDesign', 'Figma'],
     images: ['/images/amygo logo.png','/images/GD/AMYGOBACK.png', '/images/GD/AMYGOFRONT.png'],
     description: 'Logo and Business Cards designed for the medical company Amygo Biotechnologies Inc.',
-    link: 'https://www.behance.net/mabelcastillo'
+    link: 'https://www.amygo.ca'
   },
   {
     id: 6,
