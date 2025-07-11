@@ -80,8 +80,8 @@ const graphicDesignProjects: Project[] = [
   },
   {
     id: 7,
-    title: 'Internship in Institutional Communication Directorate of UANL',
-    type: 'Graphic Design for Universidad Autónoma de Nuevo León ',
+    title: 'Graphic Design Internship',
+    type: 'Institutional Communication Directorate of Universidad Autónoma de Nuevo León ',
     tools: ['Adobe Photoshop', 'Adobe After Effects', 'Pro Tools', 'Google Workspace'],
     images: ['/images/GD/UANL.png', '/images/GD/INT2.png', '/images/GD/INT3.png', '/images/GD/INT5.png'],
     description: 'Edited video content for institutional communication and designed academic presentations for university staff and event.',
