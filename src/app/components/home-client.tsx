@@ -36,12 +36,12 @@ export default function HomeClient() {
           <h1 className="text-white text-8xl font-magic-retro glow animate-glow items-center justify-center text-center">
             Mabel Castillo
           </h1>
-          <span className="text-white text-sm mb-4 mx-8 md:font-bold text-center md:mx-64">
+          {/* <span className="text-white text-sm mb-4 mx-8 md:font-bold text-center md:mx-64">
             I'm a front-end developer with a background in graphic design and audiovisual production. 
           </span>
           <span className="text-white text-sm hidden font-bold text-center md:mx-64 md:mb-8 md:flex">
             I love making beautiful and organized projects, cooking, and listening to Fall Out Boy.
-          </span>
+          </span> */}
           <ContactButton></ContactButton>
           <div>
             <FloatingChevron className="bottom-4 flex flex-center justify-center"></FloatingChevron>
