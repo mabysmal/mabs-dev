@@ -181,7 +181,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
             onClick={() => setCurrentCategory(key as CategoryType)}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 md: text-lg ${
               currentCategory === key
-                ? 'bg-white text-purple-600 shadow-md'
+                ? 'bg-white text-black  shadow-md'
                 : 'text-white hover:bg-white hover:bg-opacity-10'
             }`}
           >
