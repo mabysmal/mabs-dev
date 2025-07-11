@@ -242,7 +242,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
 
                   </div>
                   <h2 className="text-xl text-black font-semibold mb-2">{project.title}</h2>
-                  <p className="text-sm text-gray-600 mb-2">{project.type}</p>
+                  <p className="text-sm text-gray mb-2">{project.type}</p>
                   <ToolsDisplay tools={project.tools} />
                   <p className="text-sm text-black mb-4">{project.description}</p>
                   <a href={project.link} className="block">
@@ -289,7 +289,7 @@ return (
         <div className="flex flex-col items-center justify-center h-[65vh]">
           <button
             onClick={() => navigateProject('prev')}
-            className="mb-4 text-white hover:text-gray-200 transition-colors"
+            className="mb-4 text-white hover:text-gray transition-colors"
           >
             <ChevronUp size={32} />
           </button>
@@ -312,7 +312,7 @@ return (
           </div>
           <button
             onClick={() => navigateProject('next')}
-            className="mt-4 text-white hover:text-gray-200 transition-colors"
+            className="mt-4 text-white hover:text-gray transition-colors"
           >
             <ChevronDown size={32} />
           </button>
@@ -332,7 +332,7 @@ return (
               <h1 className="text-2xl md:text-3xl font-bold mb-2">
                 {currentProjects[currentProjectIndex].title}
               </h1>
-              <span className="text-sm text-gray-500 mb-4 block">
+              <span className="text-sm text-gray mb-4 block">
                 {currentProjects[currentProjectIndex].type}
               </span>
               <div className="flex justify-center mb-4">
@@ -347,7 +347,7 @@ return (
             />
             </div>
             
-            <p className="text-gray-700 mb-4 mt-4 w-3/4 mx-auto">
+            <p className="text-gray mb-4 mt-4 w-3/4 mx-auto">
               {currentProjects[currentProjectIndex].description}
             </p>
             

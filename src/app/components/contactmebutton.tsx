@@ -92,7 +92,7 @@ const ContactButton = () => {
                 href={network.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`w-full flex items-center gap-3 px-4 py-2 text-gray-700 hover:text-white ${network.color} transition-colors duration-200`}
+                className={`w-full flex items-center gap-3 px-4 py-2 text-gray hover:text-white ${network.color} transition-colors duration-200`}
                 onClick={() => setIsOpen(false)}
               >
                 <div className="w-8 h-8 flex items-center justify-center">
