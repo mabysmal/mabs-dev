@@ -241,13 +241,13 @@ const Portfolio: React.FC<PortfolioProps> = ({ isActive }) => {
                   />
 
                   </div>
-                  <h2 className="text-xl font-semibold mb-2">{project.title}</h2>
+                  <h2 className="text-xl text-black font-semibold mb-2">{project.title}</h2>
                   <p className="text-sm text-gray-600 mb-2">{project.type}</p>
                   <ToolsDisplay tools={project.tools} />
-                  <p className="text-sm mb-4">{project.description}</p>
+                  <p className="text-sm text-black mb-4">{project.description}</p>
                   <a href={project.link} className="block">
                     <button className="bg-green-500 text-white px-4 py-2 rounded-full w-full">
-                      Visit Live Page
+                      Visit Project Page
                     </button>
                   </a>
                 </div>
