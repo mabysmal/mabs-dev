@@ -84,7 +84,7 @@ const ContactButton = () => {
   return (
     <div className="relative inline-block contact-button-container">
       {isOpen && (
-        <div className="absolute bottom-full mb-2 w-48 rounded-lg shadow-lg bg-white border border-gray-100 overflow-hidden">
+        <div className="absolute bottom-full w-48 rounded-lg shadow-lg bg-white border border-gray-100 overflow-hidden">
           <div className="py-1">
             {socialNetworks.map((network, index) => (
               <a

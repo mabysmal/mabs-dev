@@ -14,7 +14,7 @@ const CircularProfile: React.FC<CircularProfileProps> = ({ speed }) => {
   const [rotation, setRotation] = useState(0);
   const [isMobile, setIsMobile] = useState(true);
   const textBoxes: TextBox[] = [
-    { text: 'frontend developer', angle: 0 },
+    { text: 'web developer', angle: 0 },
     { text: 'photographer', angle: 120 },
     { text: 'graphic designer', angle: 240 },
   ];
