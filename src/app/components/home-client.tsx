@@ -57,6 +57,10 @@ export default function HomeClient() {
           <Portfolio isActive={activeSection === "portfolio"}></Portfolio>
         </section>
 
+        <footer className="min-h-screen">
+          {/* Agregar CV aqui NO TE OLVIDES DE ESO WEY */}
+        </footer>
+
         {/* <section 
           id="About Me" 
           className="h-screen flex items-center justify-center"
